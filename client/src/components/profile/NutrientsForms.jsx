@@ -24,10 +24,12 @@ export default function NutrientsForms() {
     <>
         <h3>Nutrients to track</h3>
 
-        <p
-            style={{marginBottom:"30px",fontStyle:"italic"}}
-        >
-            Please, get your recommendations from experts.
+        <p style={{marginBottom:"8px"}}>
+            Choose up to 3 nutrients to track daily. For each one, set a goal amount in grams and whether your target is less than, equal to, or greater than that amount.
+        </p>
+
+        <p style={{marginBottom:"30px",fontSize:"0.925rem"}}>
+            Food Pulse does not provide medical advice. All medical or clinical questions should be directed to your doctor or a qualified medical professional.
         </p>
 
         <div id="flexGoalNutrients">

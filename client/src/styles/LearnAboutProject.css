@@ -1,14 +1,33 @@
 #aboutProject {
+    width: 88%;
+    max-width: 1100px;
+    margin: 0 auto 150px;
+}
+
+#aboutProject h2 {
     text-align: center;
-    width:80%;
-    margin: 0 auto;
-    margin-bottom: 150px;
+    margin-bottom: 32px;
+}
+
+/* Two-column layout */
+#aboutLayout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 60px;
+    align-items: start;
+}
+
+/* Left column */
+#aboutLeft {
+    text-align: left;
 }
 
 #aboutProject #gitHubLink {
-    display: flex;
-    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     text-decoration: none;
+    margin-bottom: 20px;
 }
 
 body[data-theme="light"] #aboutProject #gitHubLink {
@@ -16,66 +35,139 @@ body[data-theme="light"] #aboutProject #gitHubLink {
 }
 
 body[data-theme="dark"] #aboutProject #gitHubLink {
-    color: #be1730;
+    color: #F79285;
 }
 
+#aboutProject #gitHubLink p {
+    margin: 0;
+    font-size: 0.9rem;
+}
 
 #aboutProject #introduction {
-    margin:40px 20%;
+    margin: 0 0 24px;
+    line-height: 1.7;
+    font-size: 0.925rem;
+    opacity: 0.85;
 }
 
+#aboutProject #techStack {
+    margin: 32px 0 0;
+}
 
-#aboutProject #techStack{
-    background-color: #951327;
-    color: white;
-    padding: 10px;
-    margin : 80px 0;
-    border-radius: 5px;
+#aboutProject #techStack h3 {
+    margin-bottom: 14px;
+    text-align: left;
+}
+
+#aboutProject #techStack ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 0;
+    list-style: none;
+    margin: 0;
 }
 
 #aboutProject #techStack li {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 7px 18px;
+    border-radius: 20px;
+    border: 1.5px solid #951327;
     width: fit-content;
-    margin: 0 auto;
+}
+
+body[data-theme="light"] #aboutProject #techStack li {
+    color: #951327;
+    background-color: transparent;
+}
+
+body[data-theme="dark"] #aboutProject #techStack li {
+    color: #F79285;
+    border-color: #F79285;
+    background-color: transparent;
+}
+
+/* Right column */
+#aboutRight {
+    text-align: center;
+}
+
+#aboutRight h3 {
+    margin-bottom: 24px;
 }
 
 #aboutProject #contributors {
-    display : flex;
-    justify-content: center;
-    gap:100px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 
 #aboutProject #contributors div {
-    width:fit-content;
+    width: 100%;
 }
 
 #aboutProject #contributors .roundButton {
-    font-size: 1.3em;
+    font-size: 1.1rem;
 }
 
 #aboutProject #contributors img {
     border-radius: 50%;
-    width: 350px;
-    margin-bottom: 35px;
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    object-position: top;
+    margin-bottom: 12px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+#aboutProject #contributors h4 {
+    margin: 0 0 8px;
+}
 
-@media screen and (max-width:600px) {
-    
+#aboutProject #contributors p {
+    font-size: 0.82rem;
+    opacity: 0.65;
+    margin: 0 0 8px;
+}
+
+/* Mobile: stack vertically */
+@media screen and (max-width: 768px) {
+    #aboutLayout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    #aboutLeft {
+        text-align: center;
+    }
+
+    #aboutProject #techStack h3 {
+        text-align: center;
+    }
+
+    #aboutProject #techStack ul {
+        justify-content: center;
+    }
+
     #aboutProject #introduction {
-        margin: 20px 0%;
         text-align: left;
     }
 
-    #aboutProject #contributors{
-        display: block;
-    }
-
-    #aboutProject #contributors div {
-        margin: 30px 0;
+    #aboutProject #contributors {
+        flex-direction: row;
+        justify-content: center;
+        gap: 32px;
+        flex-wrap: wrap;
     }
 
     #aboutProject #contributors img {
-        width:70%;
-        margin-bottom: 0px ;
+        width: 120px;
+        height: 120px;
     }
 }
