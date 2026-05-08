@@ -18,11 +18,11 @@ export default function AuthentificationForm({credentials,setCredentials,type}) 
         <label>
             Your username
 
-            <input 
+            <input
                 type='text'
                 name='username'
                 value={credentials.username}
-                autoComplete='username'
+                autoComplete='off'
                 onChange={(event)=>handleChange(event)}
             />
         </label>
@@ -30,13 +30,12 @@ export default function AuthentificationForm({credentials,setCredentials,type}) 
         <label>
             Your password
 
-            <input 
-                type= {readPassword?"text":"password"}
+            <input
+                type={readPassword?"text":"password"}
                 name='password'
                 value={credentials.password}
-                autoComplete='password'
+                autoComplete='new-password'
                 onChange={(event)=>handleChange(event)}
-                
             />
             <i className={readPassword?'fi fi-rr-eye-crossed'
             :'fi fi-rr-eye'} 

@@ -22,11 +22,12 @@ export default function Inputs({nutrient,index,chosenNutrientsForm, setChosenNut
 
   return (
     <>
-        <input 
+        <input
             name='amount'
             value={nutrient.amount}
             type='number'
             onChange={(event)=>handleChangeInputs(event)}
+            onFocus={(e)=>e.target.select()}
         />
 
         <p>{unitNutrients[nutrient.name]}</p>

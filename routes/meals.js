@@ -41,23 +41,17 @@ router.get("/:profile_id/:date", async(req, res)=>{
     )
 
 
-    const meals= mealsResult.data.map(m=>{
-      let allIngredients = [];
-      const obj = JSON.parse(m.ingredients);
-      for(let key in obj){
-        allIngredients.push({name:key,amount:obj[key]})}
-        return allIngredients
-      })
+    const parse = (val) => typeof val === 'string' ? JSON.parse(val) : val;
 
+    const meals = mealsResult.data.map(m => {
+      const obj = parse(m.ingredients);
+      return Object.entries(obj).map(([name, amount]) => ({ name, amount }));
+    });
 
-    const nutrients = mealsResult.data.map(m=>{
-      let allNutrients = [];
-      const obj = JSON.parse(m.nutrients);
-      for(let key in obj){
-        allNutrients.push({name:key,amount:obj[key]})
-      }
-      return allNutrients;
-    })
+    const nutrients = mealsResult.data.map(m => {
+      const obj = parse(m.nutrients);
+      return Object.entries(obj).map(([name, amount]) => ({ name, amount }));
+    });
 
   
 
@@ -104,8 +98,7 @@ router.delete("/:profile_id/:date/:index", async (req,res)=>{
       [profile_id,date]
     )
 
-    if(mealIds.length<=index){
-      //The index is not in
+    if(mealIds.length <= Number(index)){
       return res.status(404).json({message:"The index is incorrect."});
     }
 
@@ -140,8 +133,6 @@ router.put("/:profile_id/:date", async (req,res)=>{
     const {ingredients, nutrients ,index} = req.body;
     const {profile_id,date} = req.params;
 
-
-
   try {
 
     if(!checkObjectFormat(nutrients,"nutrients")) return res.status(400).json({message:"Invalid nutrients format."});
@@ -153,7 +144,7 @@ router.put("/:profile_id/:date", async (req,res)=>{
     )
 
 
-    if(mealIds.length<=index){
+    if(mealIds.length <= Number(index)){
       return res.status(404).json({message:"The index is incorrect."});
     }
 

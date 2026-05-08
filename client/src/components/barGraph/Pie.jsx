@@ -10,8 +10,9 @@ export default function Pie({nut,index}) {
   return (
     <div className='pie'
         style={{backgroundImage:`conic-gradient(
-              transparent 0deg ${360 - nut.percentage * 3.6}deg,
-              ${colors[index]} ${360 - nut.percentage * 3.6}deg 360deg
+              from -90deg,
+              ${colors[index]} 0deg ${nut.percentage * 3.6}deg,
+              rgba(0,0,0,0.08) ${nut.percentage * 3.6}deg 360deg
             )`}}>
 
 

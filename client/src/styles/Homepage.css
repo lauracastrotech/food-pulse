@@ -1,12 +1,20 @@
 .Homepage {
     position: relative;
-    margin-bottom: 150px;
+    margin-bottom: 120px;
 }
 
 #noMealWarning {
     text-align: center;
-    width:80%;
-    border: 2px dashed lightgrey;
-    margin: 20px auto;
-    padding: 30px 0;
+    width: 80%;
+    max-width: 480px;
+    border: 2px dashed rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    margin: 40px auto;
+    padding: 36px 24px;
+    opacity: 0.6;
+    font-size: 0.9rem;
+}
+
+body[data-theme="dark"] #noMealWarning {
+    border-color: rgba(255, 255, 255, 0.15);
 }

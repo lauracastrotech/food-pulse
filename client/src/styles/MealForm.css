@@ -1,61 +1,74 @@
 #MealForm {
-  text-align: left;
+    text-align: left;
 }
 
+/* Ingredient suggestions */
 #MealForm .suggestions {
-  cursor: pointer; 
-  font-size: 0.8em; 
-  margin: 4px 0 4px 15px;
-  padding:6px 6px;
-  text-align: left;
-  background-color: transparent;
-  width:fit-content;
-  border-radius: 4px;
+    display: block;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 3px 0 3px 12px;
+    padding: 5px 10px;
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    width: fit-content;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+body[data-theme="light"] #MealForm .suggestions {
+    color: #1a1a1a;
+}
+
+body[data-theme="dark"] #MealForm .suggestions {
+    color: #f0efed;
 }
 
 #MealForm .suggestions:hover {
-  background-color: #951327;
-  color: white;
+    background-color: #951327;
+    color: white;
 }
 
 #MealForm input[name="name"] {
-  width: 45%;
+    width: 45%;
 }
 
-#MealForm input[name="amount"]{
-  width : 20%;
+#MealForm input[name="amount"] {
+    width: 20%;
 }
 
-@media screen and (max-width:600px) {
-  #MealForm div{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: left;
-    align-items: center;
-    margin-bottom: 15px;
-  }
-  #AddAMeal #MealForm {
-    max-width: 80%;
-  }
+@media screen and (max-width: 600px) {
+    #MealForm div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 12px;
+    }
 
-  #MealForm input[name="name"] {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  
-  #MealForm input[name="amount"]{
-    margin: 0;
-    margin-right: 5px;
-    width: fit-content;
-  }
+    #AddAMeal #MealForm {
+        max-width: 90%;
+        margin: 0 auto;
+    }
 
-  #MealForm .roundButton {
-    width : 25px;
-    height: 25px;
-    margin-left: 10px;
-  }
+    #MealForm input[name="name"] {
+        width: 100%;
+        margin-bottom: 8px;
+    }
 
-  .mealContainer #MealForm {
-    width: 100%;
-  }
+    #MealForm input[name="amount"] {
+        margin: 0 6px 0 0;
+        width: fit-content;
+    }
+
+    #MealForm .roundButton {
+        width: 28px;
+        height: 28px;
+    }
+
+    .mealContainer #MealForm {
+        width: 100%;
+    }
 }

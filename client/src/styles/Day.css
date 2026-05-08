@@ -1,6 +1,7 @@
-/* Div */
+/* ── Calendar strip ───────────────────────── */
+
 #Day {
-    padding: 20px;
+    padding: 16px 20px;
 }
 
 body[data-theme="light"] #Day {
@@ -8,125 +9,132 @@ body[data-theme="light"] #Day {
 }
 
 body[data-theme="dark"] #Day {
-    background-color:#750e1d;
+    background-color: #7a0f1e;
 }
 
-#Day #displayedDate{
-    color:white;
+#Day #displayedDate {
+    color: rgba(255, 255, 255, 0.85);
     text-align: center;
+    margin: 0 0 10px;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
 }
 
 #Day #datesContainer {
     display: flex;
     justify-content: center;
-    margin: auto;
     align-items: center;
-    padding:0 20px;
+    gap: 8px;
+    padding: 0 4px;
 }
 
-#Day  #datesContainer main {
+#Day #datesContainer main {
     display: flex;
-    width:60%;
+    gap: 4px;
+    flex: 1;
+    max-width: 600px;
+    justify-content: center;
 }
 
-
-
+/* Nav arrows */
 #Day #datesContainer button {
-    color:white;
-    border-color: white;
+    color: rgba(255, 255, 255, 0.8);
+    border-color: rgba(255, 255, 255, 0.35);
+    background: transparent;
+    flex-shrink: 0;
 }
 
-#Day #datesContainer button:hover{
-    color:#FBC46C;
+#Day #datesContainer button:hover {
+    color: #FBC46C;
     border-color: #FBC46C;
+    background: transparent;
 }
 
-#Day .dateBlock{
-    width:15%;
-    padding: 8px;
+/* Date blocks */
+#Day .dateBlock {
+    flex: 1;
+    padding: 8px 4px;
     text-align: center;
-    margin: 5px;
-    border:2px solid white;
-    border-radius: 3px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: border-color 0.15s, background-color 0.15s;
+    border: 1.5px solid transparent;
 }
 
 body[data-theme="light"] #Day .dateBlock {
     background-color: white;
-    border-color:white;
 }
 
 body[data-theme="dark"] #Day .dateBlock {
-    background-color: #d9d9d9;
-    border-color:#d9d9d9;
+    background-color: #e8e6e0;
 }
 
-body[data-theme="light"] #Day .selectedDate{
+#Day .dateBlock:hover {
+    border-color: #F79285;
+}
+
+/* Selected date */
+body[data-theme="light"] #Day .selectedDate,
+body[data-theme="dark"] #Day .selectedDate {
     background-color: #FBC46C;
-    color: white;
     border-color: #FBC46C;
 }
-
-body[data-theme="dark"] #Day .selectedDate{
-    background-color: #FBC46C;
-    color: white;
-    border-color: #FBC46C;
-}
-
-
-
-
 
 #Day .selectedDate .greyText {
     color: #951327;
 }
 
 #Day .selectedDate .numberDate {
-    color: #af1f35;
+    color: #951327;
 }
 
 #Day .dateBlock p {
     margin: 0;
 }
 
-#Day .dateBlock:hover {
-    border-color: #F79285 ;
-}
-
 .dateBlock .greyText {
     text-transform: uppercase;
-    font-size:0.8em;
+    font-size: 0.72rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body[data-theme="light"] .dateBlock .greyText {
-    color:rgb(134, 134, 134);
+    color: #888;
 }
 
 body[data-theme="dark"] .dateBlock .greyText {
-    color:black;
+    color: #555;
 }
-
 
 .dateBlock .numberDate {
-    font-size: 1.4em;
+    font-size: 1.3rem;
     font-family: AnjaEliane;
-    color: black;
+    color: #1a1a1a;
 }
 
+@media screen and (max-width: 600px) {
+    #Day {
+        padding: 12px 10px;
+    }
 
-@media screen and (max-width:600px) {
-    .dateBlock .greyText{
-        font-size: 0.6em;
+    .dateBlock .greyText {
+        font-size: 0.6rem;
     }
-    #Day #datesContainer main{
-        width: 100%;
+
+    #Day #datesContainer main {
+        gap: 2px;
     }
+
     #Day .dateBlock {
-        padding: 3px;
-        min-width:8%;
+        padding: 4px 2px;
+        border-radius: 6px;
     }
+
     #Day #datesContainer button {
-        width:25px;
-        height: 25px;
+        width: 28px;
+        height: 28px;
     }
 }

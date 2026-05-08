@@ -3,33 +3,27 @@ import mealCardContext from '../../context/mealCard';
 
 export default function ToggleButton() {
 
-    const {openedMeals,setOpenedMeals,index} = useContext(mealCardContext);
+    const {openedMeals, setOpenedMeals, index} = useContext(mealCardContext);
+    const [isOpen, setIsOpen] = useState(false);
 
-    const [isOpen,setIsOpen] = useState(false);
+    useEffect(() => {
+        setIsOpen(openedMeals.includes(index));
+    }, [openedMeals])
 
-    useEffect(()=>{
-        setIsOpen(openedMeals.includes(index))
-    },[openedMeals])
-
-    function handleToggleOpen(){
-        let newList;
-
-        if(isOpen) { 
-          newList = openedMeals.filter(m=>m!==index);
-        } else { 
-          newList = [...openedMeals,index];
-        }
-  
+    function handleToggleOpen() {
+        const newList = isOpen
+            ? openedMeals.filter(m => m !== index)
+            : [...openedMeals, index];
         setOpenedMeals(newList);
-      }
+    }
 
   return (
-
         <button
-            style={isOpen? {transform:"rotate(90deg)",dipslay:"inline"} : {display:"inline"}} 
-            className='roundButton'
-            onClick={()=>handleToggleOpen()}>
-            &gt;
+            className='textButton'
+            style={{fontSize:"0.75rem", opacity: 0.6}}
+            onClick={handleToggleOpen}
+        >
+            {isOpen ? 'Hide ingredients' : 'Show ingredients'}
         </button>
   )
 }

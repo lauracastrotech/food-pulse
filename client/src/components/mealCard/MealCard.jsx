@@ -8,32 +8,26 @@ import mealCardContext from '../../context/mealCard';
 
 export default function MealCard() {
 
-    const {openedMeals,index} = useContext(mealCardContext);
+    const {openedMeals, index} = useContext(mealCardContext);
+    const [isOpen, setIsOpen] = useState(false);
 
-
-    const [isOpen,setIsOpen] = useState(false);
-
-    useEffect(()=>{
+    useEffect(() => {
         setIsOpen(openedMeals.includes(index));
-    },[openedMeals])
+    }, [openedMeals])
 
   return (
     <>
         <div id='listContainer'>
-            <ToggleButton />
-
-            <h3 style={{display:"inline",marginLeft:"10px"}}>
+            <h3 style={{display:"inline"}}>
                 Meal #{index+1}
             </h3>
 
             <ModifyButton/>
-
             <DeleteButton/>
-
-            {isOpen &&
-                <DropdownList/>
-            }
+            <ToggleButton />
         </div>
+
+        {isOpen && <DropdownList />}
 
         <MealNutrients />
     </>

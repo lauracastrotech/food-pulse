@@ -1,46 +1,33 @@
 #AddAMeal {
     text-align: center;
-    padding: 40px 0;
-    position: relative;
+    padding: 32px 20px;
 }
 
+#AddAMeal h2 {
+    margin: 0 0 20px;
+}
 
-
- #AddAMeal h2 input {
+#AddAMeal h2 input {
     margin-left: 8px;
-    padding: 3px;
-} 
+    padding: 3px 8px;
+}
 
- #AddAMeal form {
-    padding: 10px 0;
-    margin: auto;
-    width:35%;
-} 
-
+#AddAMeal form {
+    margin: 0 auto;
+    width: 560px;
+    max-width: 100%;
+}
 
 #AddAMeal form input {
-    margin: 0 5px;
+    margin: 0 4px;
 }
 
-@media screen and (min-width:600px) and (max-width:1025px) {
-    #AddMeal form {
-        width:80%;
-    }
-}
-
-@media screen and (max-width:600px){
+@media screen and (max-width: 600px) {
     #AddAMeal form {
-        width:100%;
+        width: 100%;
     }
 
     #AddAMeal form input {
-        width:25%;
+        width: 28%;
     }
-
-    #AddAMeal #addMealButton {
-        width:30%;
-        left:35%
-    }
-
-
 }

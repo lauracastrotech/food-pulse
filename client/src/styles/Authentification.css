@@ -1,39 +1,81 @@
 #Authentification {
-    width:80%;
-    background-color: #931327;
-    padding:50px 0;
-    margin:40px auto;
+    width: 100%;
+    max-width: 420px;
+    margin: 60px auto 100px;
+    padding: 40px 36px;
+    border-radius: 14px;
     text-align: center;
-    color: white;
-    margin-bottom: 100px;
-    border-radius: 8px;
 }
 
-#Authentification form label{
+body[data-theme="light"] #Authentification {
+    background-color: white;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.09);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+body[data-theme="dark"] #Authentification {
+    background-color: #242222;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+#Authentification h1 {
+    font-size: 1.4rem;
+    margin: 0 0 28px;
+    color: #951327;
+}
+
+body[data-theme="dark"] #Authentification h1 {
+    color: #F79285;
+}
+
+#Authentification form label {
     display: block;
-    padding: 8px 0;
+    text-align: left;
+    padding: 6px 0;
     position: relative;
-    width: fit-content;
-    margin: auto;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 4px;
 }
 
 #Authentification input {
     display: block;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-#Authentification form label i{
+#Authentification form label i {
     position: absolute;
-    right: 8%;
-    top:52%;
+    right: 12px;
+    top: 50%;
+    transform: translateY(10%);
     cursor: pointer;
-    color: black;
+    opacity: 0.5;
 }
 
+#Authentification p {
+    font-size: 0.85rem;
+    color: #EA5F3A;
+    min-height: 1.2em;
+    margin: 8px 0 0;
+}
 
-#Authentification .textButton:hover{
-    background-color: #F79285;
+#Authentification .textButton,
+#Authentification .importantTextButton {
+    width: 100%;
+    margin: 6px 0;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 #Authentification .navigateToOtherType {
     cursor: pointer;
+    font-size: 0.85rem;
+    margin-top: 16px;
+    opacity: 0.7;
+}
+
+#Authentification .navigateToOtherType:hover {
+    opacity: 1;
 }

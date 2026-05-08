@@ -1,13 +1,15 @@
 #Footer {
     display: flex;
-    padding:0px 10% 20px 10%;
-    width:80%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    width: 90%;
     position: fixed;
     bottom: 0;
-    height:10px;
-    margin:0;
+    height: 36px;
+    margin: 0;
     color: #951327;
-    justify-content: space-between;
+    border-top: 1px solid rgba(149, 19, 39, 0.2);
 }
 
 body[data-theme="light"] #Footer {
@@ -15,26 +17,30 @@ body[data-theme="light"] #Footer {
 }
 
 body[data-theme="dark"] #Footer {
-    background-color: #f3b24a;
+    background-color: #e8a93f;
 }
 
-#Footer p{
+#Footer p {
     padding: 0;
     margin: 0;
-    font-size: 0.8em;
+    font-size: 0.78rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #Footer a {
     color: #951327;
-    margin:auto 3px;
+    margin: 0 4px;
+    font-weight: 600;
+    text-decoration: none;
 }
 
-@media screen and (max-width:600px){
-    
+#Footer a:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
     #Footer {
-        display: block;
-        height: 25px;
-        font-size: 0.75em;
-        height:12px;
+        height: 28px;
+        font-size: 0.72rem;
     }
 }
