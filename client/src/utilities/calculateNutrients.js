@@ -5,63 +5,50 @@ import axios from "axios";
 
 export default async function calculateNutrients(listIng) {
 
-  
-    // Create an array of axios GET requests
     const requests = listIng.map(ingredient =>
-        axios.get(`https://api.nal.usda.gov/fdc/v1/foods/list?api_key=${authKey}`, {
+        axios.get(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${authKey}`, {
             params: {
                 query: ingredient.name,
-                dataType: "Survey (FNDDS)",
                 pageSize: 1,
             },
         })
     );
 
-
-
     try {
-        // Wait for all requests to complete
         const responses = await axios.all(requests);
 
         const allNutrients = {};
 
-        
-        //Create object with 20 nutrient names
-        Object.keys(userFriendlyNutrientNames).map(nut=>{
-          allNutrients[nut]=0;
-        })
+        Object.keys(userFriendlyNutrientNames).forEach(nut => {
+          allNutrients[nut] = 0;
+        });
 
-        //For each ingredient, add nutrients to object
-        responses.forEach((res,index)=>{
+        responses.forEach((res, index) => {
+          const food = res.data.foods?.[0];
+          if (!food) return;
 
           let ingAmount;
-          
-          
-          if("numberAmount" in listIng[index]) {
+          if ("numberAmount" in listIng[index]) {
             ingAmount = listIng[index].numberAmount;
-          } else if("amount" in listIng[index]){
+          } else if ("amount" in listIng[index]) {
             ingAmount = listIng[index].amount;
           }
 
+          food.foodNutrients
+            .filter(nut => Object.keys(userFriendlyNutrientNames).includes(nut.nutrientName))
+            .forEach(nut => {
+              allNutrients[nut.nutrientName] += ((nut.value / 100) * ingAmount);
+            });
+        });
 
-          res.data[0].foodNutrients
-          .filter(nut=>Object.keys(userFriendlyNutrientNames).includes(nut.name))
-          .forEach(nut=>{
-            allNutrients[nut.name]+=((nut.amount/100)*ingAmount);
-          })
-        })
-
-
-        //Round nutrients to 2nd decimal
-        for(let key in allNutrients){
-          allNutrients[key] = Math.round(allNutrients[key]*100)/100;
+        for (let key in allNutrients) {
+          allNutrients[key] = Math.round(allNutrients[key] * 100) / 100;
         }
 
+        return allNutrients;
 
-        return allNutrients
-
-    } catch (errors) {
-        console.log(errors); // Handle errors
-        return new Error({message:"Error"});
+    } catch (err) {
+        console.error("Error calculating nutrients:", err);
+        throw err;
     }
 }

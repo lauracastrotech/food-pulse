@@ -1,22 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import profileInfoContext from '../../context/profileInfo'
 
 export default function ProfilePicture() {
+  const { profileInfo } = useContext(profileInfoContext);
+
   return (
     <div id='profileImage'>
-
-        <img 
-            src='/avatar-default.jpg'
-            alt='Default profile picture'
-        />
-
-        <button
-            className='roundButton'
-            disabled
-            title='Available in later update'
-            style={{backgroundColor:"lightgray"}}
-        >
-            <i className='fi fi-rr-refresh'></i>
-        </button>
+      <img
+        src={profileInfo.profilePicture || '/avatar-default.jpg'}
+        alt='Profile picture'
+      />
     </div>
   )
 }

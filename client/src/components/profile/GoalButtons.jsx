@@ -24,16 +24,17 @@ export default function GoalButtons({nutrient,chosenNutrientsForm,setChosenNutri
     }
 
   return (
-    <>
+    <div className="goalButtonsRow">
         {goalButtons.map((goal,buttonIndex)=>(
             <button
                 key={buttonIndex}
+                type="button"
                 className={getButtonClass(goal.name,nutrient.goal)}
                 onClick={()=>handleChangeButtons(goal.name)}
             >
                 {goal.sign}
             </button>
         ))}
-    </>
+    </div>
   )
 }

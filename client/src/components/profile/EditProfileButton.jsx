@@ -1,14 +1,12 @@
 import React from 'react'
 
-export default function EditProfileButton() {
+export default function EditProfileButton({ onEdit }) {
   return (
-    <button 
-        className='importantTextButton'
-        style={{marginLeft:"0",backgroundColor:"lightgrey"}}
-        disabled
-        title='Available in later update'
+    <button
+      className='importantTextButton'
+      onClick={onEdit}
     >
-        Edit profile
+      Edit profile
     </button>
   )
 }

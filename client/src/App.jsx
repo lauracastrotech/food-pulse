@@ -24,7 +24,11 @@ function App() {
   const [profileInfo,setProfileInfo] = useState({
     id:null,
     username:"",
-    chosenNutrients:null
+    chosenNutrients:null,
+    age:null,
+    height:null,
+    weight:null,
+    profilePicture:null,
   });
 
 

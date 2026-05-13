@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import MealConstruction from '../utilities/classes/MealConstructionClass';
+import Day from '../utilities/classes/DayClass';
 import profileInfoContext from '../context/profileInfo';
-import mealsForOneDate from '../context/mealsForOneDate';
+import mealsForOneDateContext from '../context/mealsForOneDate';
 import { useNavigate } from 'react-router-dom';
 
 import "../styles/MealForm.css"
@@ -10,6 +11,7 @@ import "../styles/MealForm.css"
 export default function MealForm({mealIndex=null,ing=null,setModifiedMeal=null,date=null,functionnality}) {
 
     const {profileInfo} = useContext(profileInfoContext);
+    const mealsCtx = useContext(mealsForOneDateContext);
     const navigate = useNavigate();
 
     const authKey = import.meta.env.VITE_APP_API_KEY;
@@ -72,11 +74,15 @@ export default function MealForm({mealIndex=null,ing=null,setModifiedMeal=null,d
       await meal.sendToDB(date,profileInfo.id,mealIndex);
 
       if(meal.functionnality==="update"){
-        setModifiedMeal(null)
+        const {currentDay, setCurrentDay} = mealsCtx;
+        const freshDay = new Day(currentDay.date);
+        await freshDay.getMeals(profileInfo.id, profileInfo.chosenNutrients);
+        setCurrentDay(freshDay);
+        setModifiedMeal(null);
       } else {
         navigate("/")
       }
-      
+
     }
 
     useEffect(()=>{
@@ -88,13 +94,14 @@ export default function MealForm({mealIndex=null,ing=null,setModifiedMeal=null,d
         {meal && meal.ingredients.map((ing,index)=>(
                   <div key={index}>
 
-                    <input 
-                      className='ingName' 
-                      value={ing.name} 
-                      onChange={(event)=>handleChange(event,index)} 
+                    <input
+                      className='ingName'
+                      value={ing.name}
+                      onChange={(event)=>handleChange(event,index)}
                       placeholder='Name of ingredient'
-                      name='name' 
-                      type='text'/>
+                      name='name'
+                      type='text'
+                      autoComplete='new-password'/>
 
                     <input 
                       className='ingAmount' 

@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import "../styles/AddAMeal.css";
 import MealForm from './MealForm';
 
 export default function AddMeal() {
 
+    const location = useLocation();
 
-    let today = `${new Date().getFullYear()}-${new Date().getMonth()+1<10?"0"+String(new Date().getMonth()+1):new Date().getMonth()+1}-${new Date().getDate().length===2?new Date().getDate():"0"+new Date().getDate()}`;
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
 
-    const [dateInput,setDateInput]=useState(today);
+    const [dateInput,setDateInput]=useState(location.state?.date || today);
 
     const [warningOn,setIsWarningOn] = useState(false);
 

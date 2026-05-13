@@ -9,13 +9,9 @@ export default class Meal {
     }
 
     getNutrients(chosenNutrients){
-
-        if(!chosenNutrients){
-            return this.nutrients;
-        } else {
-            const chosenNutrientNames = chosenNutrients.map(n=>n.name)
-            return this.nutrients.filter(n=>chosenNutrientNames.includes(n.name));
-        }
+        if(!chosenNutrients) return [];
+        const chosenNutrientNames = chosenNutrients.map(n=>n.name);
+        return this.nutrients.filter(n=>chosenNutrientNames.includes(n.name));
     }
 
     

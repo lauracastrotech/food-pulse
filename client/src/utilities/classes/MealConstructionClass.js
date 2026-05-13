@@ -45,7 +45,6 @@ export default class MealConstruction extends Meal{
                 const response = await axios.get(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${authKey}`, {
                     params: {
                         query: inputValue,
-                        dataType: "Survey (FNDDS)",
                         pageSize: 5,
                     },
                 });
@@ -63,35 +62,23 @@ export default class MealConstruction extends Meal{
     
 
     async updateMeal(profile_id,index,date,ingredients,nutrients){
-
         await axios.put(`${requestPath}/api/meals/${profile_id}/${date}`,{
-            ingredients:ingredients,
-            nutrients:nutrients,
+            ingredients,
+            nutrients,
             index
-        })
-        .then(response =>{
-            console.log(response.data.message);
-            return true;
         }).catch(err=>{
-            console.log(err);
-            return false;
-        })
-
+            console.error("Error updating meal:", err);
+        });
     }
 
     async createMeal(date,nutrients,ingredients,profile_id){
-
         await axios.post(`${requestPath}/api/meals/${profile_id}`,{
             date,
             nutrients,
             ingredients
-        })
-        .then(response =>{
-            console.log(response.data.message);
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+        }).catch(err=>{
+            console.error("Error creating meal:", err);
+        });
     }
 
     async sendToDB(day,profile_id,index){
@@ -124,7 +111,7 @@ export default class MealConstruction extends Meal{
             ingredients[i.name]=Number(i.amount);
         })
 
-        const date = new Date(day).toLocaleDateString('en-CA')
+        const date = day
 
         return {nutrients,ingredients,date}
     }

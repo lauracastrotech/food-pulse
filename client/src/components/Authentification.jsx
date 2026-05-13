@@ -17,9 +17,7 @@ export default function Authentification({type}) {
     },[type])
 
   return (
-    <div id='Authentification'
-        style={type==="register"? {backgroundColor:"rgb(216 136 18)"}:{}}
-    >
+    <div id='Authentification'>
 
         <h1>
             {type==="login"? "Login to continue" :

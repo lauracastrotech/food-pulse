@@ -1,0 +1,91 @@
+#editProfileBackdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+#editProfileModal {
+  background-color: white;
+  border-radius: 16px;
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+body[data-theme="dark"] #editProfileModal {
+  background-color: #2A2828;
+  color: white;
+}
+
+#editProfileModal h2 {
+  margin: 0 0 24px;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+#editProfilePicture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  cursor: default;
+}
+
+#editProfilePicture img {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  opacity: 0.6;
+}
+
+#editProfilePicture span {
+  font-size: 0.8rem;
+  opacity: 0.45;
+  font-style: italic;
+}
+
+#editProfileForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#editProfileForm label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+#editProfileForm input[type="number"] {
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  font-size: 0.95rem;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+body[data-theme="dark"] #editProfileForm input[type="number"] {
+  background-color: #3a3838;
+  color: white;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+#editProfileActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
