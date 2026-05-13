@@ -7,29 +7,18 @@ const nutrientNames = [ "Energy","Protein", "Carbohydrate, by difference","Total
 
 
 function checksValidFormat(obj){
-  if(typeof obj==="object" &&
-    obj!==null){
-
-      for(let nut in obj){
-        const n = obj[nut];
-        if (typeof n==="object" &&
-          n!==null &&
-          typeof n.name==="string" &&
-          typeof n.amount==="number" &&
-          typeof n.goal==="string" &&
-          nutrientNames.includes(n.name) &&
-          ["More than","Equals","Less than"].includes(n.goal)
-        ) {
-          return true
-
-        } else {
-          return false
-        }
-      }
-
-  } else {
-    return false
-  }
+  if(typeof obj !== "object" || obj === null) return false;
+  const values = Object.values(obj);
+  if(values.length === 0) return false;
+  return values.every(n =>
+    typeof n === "object" &&
+    n !== null &&
+    typeof n.name === "string" &&
+    typeof n.amount === "number" &&
+    typeof n.goal === "string" &&
+    nutrientNames.includes(n.name) &&
+    ["More than","Equals","Less than"].includes(n.goal)
+  );
 }
 
 /* PUT profile information*/
@@ -57,7 +46,21 @@ router.put("/:profile_id", async (req, res) => {
 });
 
 
-/* DELETE profile */
+/* PUT profile info (age, height, weight, picture) */
+router.put("/:user_id/info", async (req, res) => {
+  const { user_id } = req.params;
+  const { age, height, weight, profile_picture } = req.body;
 
+  try {
+    await db(
+      "UPDATE profiles SET age=?, height=?, weight=?, profile_picture=? WHERE user_id=?",
+      [age || null, height || null, weight || null, profile_picture || null, user_id]
+    );
+    res.status(200).json({ message: "Profile updated successfully." });
+  } catch (err) {
+    console.error("Error updating profile info:", err);
+    res.status(500).json({ message: "Error updating profile." });
+  }
+});
 
 module.exports = router;

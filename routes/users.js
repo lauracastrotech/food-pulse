@@ -18,7 +18,6 @@ const pool = require("../model/pool");
 
     const passwordHash = await bcrypt.hash(password, +saltrounds);
 
-    //Add verification for username and password in frontend
     const connection = await pool.getConnection();
 
     try {
@@ -32,8 +31,8 @@ const pool = require("../model/pool");
       const newUserId = userResult.insertId;
 
       await connection.query(
-        "INSERT INTO profiles (user_id, profile_id) VALUES (?,?)",
-        [newUserId,newUserId]
+        "INSERT INTO profiles (user_id) VALUES (?)",
+        [newUserId]
       );
 
       await connection.commit();
@@ -91,35 +90,27 @@ const pool = require("../model/pool");
       const token = jwt.sign(tokenPayload,jwtSecret);
 
       const profile = await connection.query(
-        "SELECT chosenNutrients from profiles where user_id = ? ;",
+        "SELECT chosenNutrients, age, height, weight, profile_picture FROM profiles WHERE user_id = ?;",
         [user_id]
       );
 
+      const profileRow = profile[0][0];
+      const rawNutrients = profileRow?.chosenNutrients;
+      let chosenNutrientsInArray = null;
 
-      // Check `profile[0]`
-      if (Array.isArray(profile[0]) && profile[0].length > 0 && profile[0][0].chosenNutrients) {
-        chosenNutrients = profile[0][0].chosenNutrients;
-      }// Fallback to `profile[1]`
-      else if (Array.isArray(profile[1]) && profile[1].length > 0 && typeof profile[1][0] === 'string') {
-        chosenNutrients = JSON.parse(profile[1][0]);
-      } else {
-        chosenNutrients = {
-          nutrient1:{name:"Sodium, Na",amount:2300,goal:"Less than"},
-          nutrient2:{name:"Vitamin E (alpha-tocopherol)",amount:15,goal:"Equals"},
-          nutrient3:{name:"Vitamin D (D2 + D3)",amount:600,goal:"More than"}
-        }
-      }
-
-      chosenNutrientsInArray = [];
-
-      for(let key in chosenNutrients){
-        chosenNutrientsInArray.push(chosenNutrients[key])
+      if (rawNutrients) {
+        const parsed = typeof rawNutrients === "string" ? JSON.parse(rawNutrients) : rawNutrients;
+        chosenNutrientsInArray = Array.isArray(parsed) ? parsed : Object.values(parsed);
       }
 
       const profileInfo = {
-        id:user_id,
+        id: user_id,
         username,
-        chosenNutrients:chosenNutrientsInArray
+        chosenNutrients: chosenNutrientsInArray,
+        age: profileRow?.age || null,
+        height: profileRow?.height || null,
+        weight: profileRow?.weight || null,
+        profilePicture: profileRow?.profile_picture || null,
       }
 
       res.status(200).json({token, profileInfo});
@@ -145,41 +136,29 @@ router.post("/token", async(req,res)=>{
 
     const decoded = jwt.verify(token,jwtSecret);
 
-    const profile = await db("SELECT chosenNutrients FROM profiles WHERE user_id = ?", [decoded.user_id]);
+    const profile = await db("SELECT chosenNutrients, age, height, weight, profile_picture FROM profiles WHERE user_id = ?", [decoded.user_id]);
 
     if(!profile){
       return res.status(404).json({ message: "Profile not found" });
     }
 
+    const profileRow = profile.data?.[0];
+    const rawNutrients = profileRow?.chosenNutrients;
+    let chosenNutrientsInArray = null;
 
-    // Check `profile[0]`
-      if (Array.isArray(profile[0]) && profile[0].length > 0 && profile[0][0].chosenNutrients) {
-        chosenNutrients = profile[0][0].chosenNutrients;
-      }// Fallback to `profile[1]`
-      else if (Array.isArray(profile[1]) && profile[1].length > 0 && typeof profile[1][0] === 'string') {
-        chosenNutrients = JSON.parse(profile[1][0]);
-      } else if (profile.data[0] && profile.data[0].chosenNutrients){
-	chosenNutrients=JSON.parse(profile.data[0].chosenNutrients)
-
-	} else {
-        chosenNutrients = {
-          nutrient1:{name:"Sodium, Na",amount:2300,goal:"Less than"},
-          nutrient2:{name:"Vitamin E (alpha-tocopherol)",amount:15,goal:"Equals"},
-          nutrient3:{name:"Vitamin D (D2 + D3)",amount:600,goal:"More than"}
-        }
-      }
-
-      chosenNutrientsInArray = [];
-
-      for(let key in chosenNutrients){
-        chosenNutrientsInArray.push(chosenNutrients[key])
-      }
-
+    if (rawNutrients) {
+      const parsed = typeof rawNutrients === "string" ? JSON.parse(rawNutrients) : rawNutrients;
+      chosenNutrientsInArray = Array.isArray(parsed) ? parsed : Object.values(parsed);
+    }
 
     const profileInfo = {
-      id : decoded.user_id,
-      username : decoded.username,
-      chosenNutrients:chosenNutrientsInArray
+      id: decoded.user_id,
+      username: decoded.username,
+      chosenNutrients: chosenNutrientsInArray,
+      age: profileRow?.age || null,
+      height: profileRow?.height || null,
+      weight: profileRow?.weight || null,
+      profilePicture: profileRow?.profile_picture || null,
     }
 
     res.status(200).json({message:"Successful login from token", profileInfo});
