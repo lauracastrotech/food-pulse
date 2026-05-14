@@ -38,7 +38,7 @@ function App() {
     if(profileInfo){
       setProfileInfo(profileInfo)
     } else {
-      navigate("/login")
+      navigate("/register")
     }
   }
 

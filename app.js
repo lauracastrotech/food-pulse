@@ -60,7 +60,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500).json({ message: err.message || 'Internal server error' });
 });
 
-const port = 5000;
+const port = 8000;
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
