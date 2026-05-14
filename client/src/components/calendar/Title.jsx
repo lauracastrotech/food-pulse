@@ -6,7 +6,7 @@ export default function Title() {
     
   return (
     <h3 id="displayedDate">
-        {new Date(currentDay.date).toLocaleDateString("en-US",{
+        {new Date(currentDay.date + 'T00:00:00').toLocaleDateString("en-US",{
         weekday: 'long',
         year: 'numeric',
         month: 'long',

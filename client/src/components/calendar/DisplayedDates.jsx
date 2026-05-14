@@ -40,15 +40,15 @@ export default function displayedDates({displayedDates}) {
                 onClick={(event)=>handleChangeDate(event,date)}
             >
                 <p className='greyText'>
-                    {week[new Date(date).getDay()]}
+                    {week[new Date(date + 'T00:00:00').getDay()]}
                 </p>
 
                 <p className='numberDate'>
-                    {new Date(date).getDate()}
+                    {new Date(date + 'T00:00:00').getDate()}
                 </p>
 
                 <p className='greyText'>
-                    {month[new Date(date).getMonth()]}
+                    {month[new Date(date + 'T00:00:00').getMonth()]}
                 </p>
             </div>
         ))}
