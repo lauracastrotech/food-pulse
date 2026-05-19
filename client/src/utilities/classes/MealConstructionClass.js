@@ -42,13 +42,14 @@ export default class MealConstruction extends Meal{
         if (inputValue) {
     
             try {
-                const response = await axios.get(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${authKey}`, {
-                    params: {
+                const response = await axios.post(
+                    `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${authKey}`,
+                    {
                         query: inputValue,
                         pageSize: 5,
                         dataType: ['Foundation', 'SR Legacy', 'Survey (FNDDS)'],
-                    },
-                });
+                    }
+                );
     
                 if (response.data.foods) {
                     return response.data.foods.map((s) =>

@@ -10,7 +10,7 @@ import "../styles/MealForm.css"
 
 export default function MealForm({mealIndex=null,ing=null,setModifiedMeal=null,date=null,functionnality}) {
 
-    const {profileInfo} = useContext(profileInfoContext);
+    const {profileInfo, setCurrentDay} = useContext(profileInfoContext);
     const mealsCtx = useContext(mealsForOneDateContext);
     const navigate = useNavigate();
 
@@ -84,7 +84,13 @@ export default function MealForm({mealIndex=null,ing=null,setModifiedMeal=null,d
         setCurrentDay(freshDay);
         setModifiedMeal(null);
       } else {
-        navigate("/")
+        const freshDay = new Day(date);
+        await freshDay.getMeals(profileInfo.id, profileInfo.chosenNutrients);
+        if(freshDay.percentageNutrients===null && profileInfo.chosenNutrients){
+          freshDay.percentageNutrients = profileInfo.chosenNutrients.map(n=>({name:n.name, amount:0}));
+        }
+        setCurrentDay(freshDay);
+        navigate("/");
       }
 
     }

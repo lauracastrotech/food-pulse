@@ -14,9 +14,8 @@ import Day from "../utilities/classes/DayClass";
 
 export default function Homepage() {
 
-  const {profileInfo} = useContext(profileInfoContext);
+  const {profileInfo, currentDay, setCurrentDay} = useContext(profileInfoContext);
   const [daysArray,setDaysArray] = useState([]);
-  const [currentDay,setCurrentDay] = useState(null);
 
 
   const navigate = useNavigate();
@@ -38,10 +37,9 @@ export default function Homepage() {
   }
 
   useEffect(()=>{
-    if(profileInfo.id){
-      
-    createFirstDay();
-  }
+    if(profileInfo.id && !currentDay){
+      createFirstDay();
+    }
   },[profileInfo])
 
 

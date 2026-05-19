@@ -31,6 +31,9 @@ function App() {
     profilePicture:null,
   });
 
+  const [currentDay, setCurrentDay] = useState(null);
+
+
 
   async function toCheckToken(){
     const profileInfo = await checkToken();
@@ -51,7 +54,7 @@ function App() {
   return (
     <> 
       
-      <profileInfoContext.Provider value={{profileInfo,setProfileInfo}}>
+      <profileInfoContext.Provider value={{profileInfo,setProfileInfo,currentDay,setCurrentDay}}>
         <Layout>
         <Routes>
           
