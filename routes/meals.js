@@ -29,7 +29,7 @@ router.get("/:profile_id/:date", async(req, res)=>{
 
   try {
     const result = await db(
-      "SELECT COUNT(*) AS profile_count FROM profiles WHERE profile_id= ? ;",
+      "SELECT COUNT(*) AS profile_count FROM profiles WHERE user_id= ? ;",
       [profile_id]
     )
 

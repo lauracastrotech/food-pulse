@@ -46,11 +46,14 @@ export default class MealConstruction extends Meal{
                     params: {
                         query: inputValue,
                         pageSize: 5,
+                        dataType: ['Foundation', 'SR Legacy', 'Survey (FNDDS)'],
                     },
                 });
     
                 if (response.data.foods) {
-                    return response.data.foods.map((s) => s.description);
+                    return response.data.foods.map((s) =>
+                        s.description.toLowerCase().replace(/\b\w/g, c => c.toUpperCase())
+                    );
                 }
             } catch (err) {
                 console.error(err);

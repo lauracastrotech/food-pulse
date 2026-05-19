@@ -47,8 +47,12 @@ export default function MealForm({mealIndex=null,ing=null,setModifiedMeal=null,d
 
         if(newSuggestions.length>0){
           setSuggestions(newSuggestions)
+        } else {
+          setSuggestions([]);
         }
-        
+      } else if(name==="name"){
+        setSuggestions([]);
+        setOnFocusInput(null);
       }
     }
 
@@ -94,33 +98,39 @@ export default function MealForm({mealIndex=null,ing=null,setModifiedMeal=null,d
         {meal && meal.ingredients.map((ing,index)=>(
                   <div key={index}>
 
-                    <input
-                      className='ingName'
-                      value={ing.name}
-                      onChange={(event)=>handleChange(event,index)}
-                      placeholder='Name of ingredient'
-                      name='name'
-                      type='text'
-                      autoComplete='new-password'/>
+                    <div className='ingNameWrapper'>
+                      <input
+                        className='ingName'
+                        value={ing.name}
+                        onChange={(event)=>handleChange(event,index)}
+                        placeholder='Name of ingredient'
+                        name='name'
+                        type='text'
+                        autoComplete='new-password'/>
 
-                    <input 
-                      className='ingAmount' 
-                      value={ing.amount} 
-                      onChange={(event)=>handleChange(event,index)}  
-                      name='amount' 
+                      {onFocusInput===index && suggestions.length>0 && (
+                        <div className='suggestionsDropdown'>
+                          {suggestions.map((s,i)=>(
+                            <p key={i} className='suggestions'
+                              onClick={()=>clickSuggestion(index,s)}
+                            >{s}</p>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    <input
+                      className='ingAmount'
+                      value={ing.amount}
+                      onChange={(event)=>handleChange(event,index)}
+                      name='amount'
                       type='number'/>g
 
-                    <button 
-                      className='roundButton' 
+                    <button
+                      className='roundButton'
                       onClick={(event)=>deleteAnIngredient(event,index)}>
                         <i className='fi fi-rr-cross-small'></i>
                     </button>
-
-                    {onFocusInput===index && suggestions && suggestions.map((s,i)=>(
-                      <p key={i} className='suggestions'
-                        onClick={()=>clickSuggestion(index,s)}
-                      >{s}</p>
-                    ))}
 
                   </div>
                 ))}

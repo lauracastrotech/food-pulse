@@ -2,19 +2,51 @@
     text-align: left;
 }
 
-/* Ingredient suggestions */
+/* Ingredient name wrapper + suggestions dropdown */
+#MealForm .ingNameWrapper {
+    position: relative;
+    display: inline-block;
+    width: 45%;
+}
+
+#MealForm .ingNameWrapper .ingName {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#MealForm .suggestionsDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+body[data-theme="light"] #MealForm .suggestionsDropdown {
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+body[data-theme="dark"] #MealForm .suggestionsDropdown {
+    background-color: #2e2c2c;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
 #MealForm .suggestions {
     display: block;
     cursor: pointer;
     font-size: 0.82rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 3px 0 3px 12px;
-    padding: 5px 10px;
+    margin: 0;
+    padding: 7px 12px;
     text-align: left;
     background-color: transparent;
     border: none;
-    border-radius: 6px;
-    width: fit-content;
+    width: 100%;
+    box-sizing: border-box;
     transition: background-color 0.15s, color 0.15s;
 }
 
@@ -53,9 +85,14 @@ body[data-theme="dark"] #MealForm .suggestions {
         margin: 0 auto;
     }
 
-    #MealForm input[name="name"] {
+    #MealForm .ingNameWrapper {
         width: 100%;
         margin-bottom: 8px;
+    }
+
+    #MealForm input[name="name"] {
+        width: 100%;
+        margin-bottom: 0;
     }
 
     #MealForm input[name="amount"] {
